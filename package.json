@@ -1,0 +1,24 @@
+{
+  "name": "telebot-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node": "^10.9.2"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0",
+    "node-telegram-bot-api": "^0.65.0",
+    "nodemon": "^3.1.0",
+    "typescript": "^5.4.2",
+    "youtube-music-api": "^1.0.6",
+    "ytdl-core": "^4.11.5"
+  }
+}
