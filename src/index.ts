@@ -1,7 +1,7 @@
 const tg = require("node-telegram-bot-api")
 import { rm, mkdirSync, readFileSync, writeFileSync } from "fs"
 
-const token = "6537153326:AAEJOD5BH9ifVe6wAH-L8FkKX0NzYJnbVPE"
+const token = "API KEY From BotFather"
 const bot = new tg(token, {
     polling: true
 })
