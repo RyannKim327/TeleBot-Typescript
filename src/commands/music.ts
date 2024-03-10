@@ -5,7 +5,6 @@ const YoutubeMusicApi = require("youtube-music-api");
 const yt = new YoutubeMusicApi();
 
 export async function main(api: any, event: any, regex: any) {
-	api.sendMessage(event.chat.id, "Hi")
 	const data = regex[1];
 	const ytFormat1 = /youtube.com\/watch\?v=([a-zA-Z0-9\-_]{11}$)/;
 	const ytFormat2 = /youtu.be\/([a-zA-Z0-9\-_]+)/;
@@ -61,9 +60,9 @@ export async function main(api: any, event: any, regex: any) {
 		.on("finish", async () => {
 			api.sendAudio(event.chat.id, createReadStream(file).on("end", () => {
 				if (existsSync(file)) {
-					unlink(file, (error) => {});
+					unlink(file, (error) => {})
+					api.deleteMessage(event.chat.id, event.message_id)
 				}
-				api.deleteMessage(event.chat.id, event.from)
 			}));
 		});
 	}
