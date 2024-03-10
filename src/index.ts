@@ -22,13 +22,12 @@ const start = async () => {
 	}else{
 		mkdirSync(`${__dirname}/../temp`)
 	}
-	
 	bot.onText(/!music\s([\w\W]+)/gi, (msg: any, match: RegExp) => {
 		main(bot, msg, match)
 		json[msg.chat.id] = "music"
 		writeFileSync(`${__dirname}/../config.json`, JSON.stringify(json), "utf-8")
 	})
-	bot.onText(/([\w\W]+)gi/, (msg: any, match: RegExp) => {
+	bot.onText(/([\w\W]+)/gi, (msg: any, match: RegExp) => {
 		if(json[msg.chat.id]){
 			main(bot, msg, match)
 		}
