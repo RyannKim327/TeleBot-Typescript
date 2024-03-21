@@ -11,34 +11,44 @@ const YoutubeMusicApi = require("youtube-music-api");
 const yt = new YoutubeMusicApi();
 
 export async function main(api: any, event: any, regex: any) {
-	const data = regex[1];
-	const ytFormat1 = /youtube\.com\/watch\?v=([a-zA-Z0-9\-_]{11}$)/gi;
-	const ytFormat2 = /youtu\.be\/([a-zA-Z0-9\-_]+)/gi;
+	let data = regex[0];
+	if(data.startsWith("!music ")){
+		let x = data.split(" ")
+		x.shift()
+		data = x.join(" ")
+	}
+
+	const ytFormat1 = /youtube\.com\/watch\?v=([a-zA-Z0-9\-_]{11})/i;
+	const ytFormat2 = /youtu\.be\/([a-zA-Z0-9\-_]+)/i;
 
 	let music: any = {
 		content: [],
 	};
+	
+	if(event.link_preview_options.url){
+		data = event.link_preview_options.url
+		if (ytFormat1.test(data)) {
+			music = {
+				content: [
+					{
+						videoId: data.match(ytFormat1)[1],
+					},
+				],
+			};
+		} else if (ytFormat2.test(data)) {
+			music = {
+				content: [
+					{
+						videoId: data.match(ytFormat2)[1],
+					},
+				],
+			};
+		}
 
-	// if (ytFormat1.test(data)) {
-	// 	music = {
-	// 		content: [
-	// 			{
-	// 				videoId: data.match(ytFormat1)[1],
-	// 			},
-	// 		],
-	// 	};
-	// } else if (ytFormat2.test(data)) {
-	// 	music = {
-	// 		content: [
-	// 			{
-	// 				videoId: data.match(ytFormat2)[1],
-	// 			},
-	// 		],
-	// 	};
-	// } else {
-	await yt.initalize();
-	music = await yt.search(data.replace(/[^\w\s]/gi, ""), "video");
-	// }
+	} else {
+		await yt.initalize();
+		music = await yt.search(data.replace(/[^\w\s]/gi, ""), "video");
+	}
 
 	const url = `https://www.youtube.com/watch?v=${music.content[0].videoId}`;
 	const info = await ytdl.getInfo(url);
