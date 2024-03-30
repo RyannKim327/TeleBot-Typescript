@@ -60,13 +60,13 @@ app.get("/keep-alive", (req, res) => {
 	res.send("Buhay pa")
 })
 
-app.get("/token", (req: any, res: any) => {
+app.get("/token", async (req: any, res: any) => {
 	if(tokens.tokens.includes(req.query.token)){
 		res.send("This token is already included in the server")
 	}else{
 		tokens.tokens.push(req.query.token)
 		writeFileSync("tokens.json", JSON.stringify(tokens, null, 2), "utf-8")
-		start(req.query.token)
+		await start(req.query.token)
 		res.send("Please check if your bot is working.")
 	}
 })
