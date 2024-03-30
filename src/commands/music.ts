@@ -25,7 +25,7 @@ export async function main(api: any, event: any, regex: any) {
 		content: [],
 	};
 	
-	if(event.link_preview_options.url){
+	if(event.link_preview_options){
 		data = event.link_preview_options.url
 		if (ytFormat1.test(data)) {
 			music = {
